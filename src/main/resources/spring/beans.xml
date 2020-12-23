@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		                    http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/aop
+							http://www.springframework.org/schema/aop/spring-aop.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/tx
+							http://www.springframework.org/schema/tx/spring-tx.xsd ">
+
+
+    <!-- Spring IOC 注解模式的加载对象
+       此标签是将那些添加了@Compoent @Repository @Service
+       注解的工具类的对象交给容器管理
+   -->
+    <context:component-scan base-package="com.ldp">
+        <!--当前的spring配置文件 设置了忽略注解 @Controller -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 整合mybatis过程 -->
+
+    <!-- 数据源 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean name="ds" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="password" value="${jdbc.password}"></property>
+        <property name="url" value="${jdbc.url}"></property>
+        <property name="username" value="${jdbc.username}"></property>
+        <property name="driverClassName" value="${jdbc.driver}"></property>
+    </bean>
+
+    <!-- 整合mybatis 工厂 -->
+    <bean name="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+         <!-- 数据源 -->
+         <property name="dataSource" ref="ds"></property>
+         <!-- mapper 的xml配置内容 -->
+         <property name="mapperLocations" value="classpath:mybatis/mappers/*.xml"></property>
+         <!-- mybatis  主配置文件 -->
+         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+         <!-- 添加分页的插件 -->
+         <property name="plugins">
+             <array>
+                 <bean class="com.github.pagehelper.PageInterceptor"></bean>
+             </array>
+         </property>
+    </bean>
+
+    <!-- 使用工具将 接口的代理对象加载到容器中管理 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 提供的工厂对象 帮助我们生成接口的代理对象 -->
+        <property name="sqlSessionFactoryBeanName" value="factory"></property>
+        <!-- 指定接口的位置 -->
+        <property name="basePackage" value="com.ldp.mapper"></property>
+    </bean>
+
+    <!-- mybatis  事务管理工具 同时也被spring整合 -->
+    <!--
+        spring提供的事务管理的工具是基于我们aop,动态代理的思想设计
+
+        DataSourceTransactionManager: 切面bean,会给我们的业务中需要添加事务管理的地方进行代码的织入
+     -->
+    <bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="ds"></property>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+</beans>

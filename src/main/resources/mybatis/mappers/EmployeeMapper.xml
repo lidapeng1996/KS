@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ldp.mapper.EmployeeMapper" >
+  <resultMap id="BaseResultMap" type="com.ldp.bean.Employee" >
+    <id column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+    <result column="hiredate" property="hiredate" jdbcType="DATE" />
+    <result column="deptno" property="deptno" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="new" type="com.ldp.bean.Employee" extends="BaseResultMap">
+    <association property="dept" column="deptno" select="com.ldp.mapper.DeptMapper.showDeptInfo" javaType="com.ldp.bean.Dept"></association>
+  </resultMap>
+
+  <select id="showEmployeeInfo" resultMap="new" >
+    select * from employee
+  </select>
+
+  <delete id="deleteInfo" parameterType="java.lang.Integer">
+    delete from employee where eid=#{eid}
+  </delete>
+
+  <insert id="addInfo" parameterType="com.ldp.bean.Employee">
+    insert into employee values (#{eid},#{ename},#{hiredate},#{deptno},#{address});
+  </insert>
+
+
+  <select id="showInfoByEid" parameterType="java.lang.Integer" resultMap="new" >
+    select * from employee where eid=#{eid}
+  </select>
+
+  <update id="uodateInfo" parameterType="com.ldp.bean.Employee">
+    update employee set ename=#{ename},hiredate=#{hiredate},deptno=#{deptno},address=#{address} where eid=#{eid}
+  </update>
+ 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
