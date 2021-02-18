@@ -14,15 +14,17 @@
 </head>
 <body>
 
-<table border="1">
+<table border="1" align="center">
+
     <tr>
         <th>员工编号</th>
         <th>员工姓名</th>
         <th>部门名称</th>
         <th>部门位置</th>
         <th>入职日期</th>
-        <th>操作</th>
+        <th colspan="2">操作</th>
     </tr>
+
     <c:forEach items="${info}" var="ead">
         <tr align="center">
             <td>${ead.eid}</td>
@@ -34,9 +36,11 @@
             <td><a href="updateInfo.jsp?eid=${ead.eid}">修改</a></td>
         </tr>
     </c:forEach>
+
     <tr>
-        <a href="add.jsp">添加</a>
+        <td align="center" colspan="7"><a href="add.jsp">添加新员工</a></td>
     </tr>
+
 </table>
 
 </body>

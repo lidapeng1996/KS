@@ -56,4 +56,11 @@ public class TestServiceImpl implements TestService {
         return flag;
     }
 
+    //异步检查用户名是注册的信息
+    @Override
+    public List<Employee> yzUser(String ename) {
+        return employeeMapper.yzUser(ename);
+    }
+
+
 }

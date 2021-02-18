@@ -20,7 +20,6 @@
 
     <script type="application/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript">
-        /*当文档载入后,执行此处的代码*/
         $(document).ready(function () {
             $.ajax({
                 type:'get',

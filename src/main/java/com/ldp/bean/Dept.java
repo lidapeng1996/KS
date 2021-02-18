@@ -1,15 +1,6 @@
 package com.ldp.bean;
 
-
 public class Dept {
-    @Override
-    public String toString() {
-        return "Dept{" +
-                "deptno=" + deptno +
-                ", dname='" + dname + '\'' +
-                ", local='" + local + '\'' +
-                '}';
-    }
 
     private Integer deptno;
 

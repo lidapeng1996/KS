@@ -10,7 +10,8 @@
   </resultMap>
 
   <resultMap id="new" type="com.ldp.bean.Employee" extends="BaseResultMap">
-    <association property="dept" column="deptno" select="com.ldp.mapper.DeptMapper.showDeptInfo" javaType="com.ldp.bean.Dept"></association>
+    <association property="dept" column="deptno" select="com.ldp.mapper.DeptMapper.showDeptInfo"
+                 javaType="com.ldp.bean.Dept"></association>
   </resultMap>
 
   <select id="showEmployeeInfo" resultMap="new" >
@@ -25,7 +26,6 @@
     insert into employee values (#{eid},#{ename},#{hiredate},#{deptno},#{address});
   </insert>
 
-
   <select id="showInfoByEid" parameterType="java.lang.Integer" resultMap="new" >
     select * from employee where eid=#{eid}
   </select>
@@ -33,6 +33,10 @@
   <update id="uodateInfo" parameterType="com.ldp.bean.Employee">
     update employee set ename=#{ename},hiredate=#{hiredate},deptno=#{deptno},address=#{address} where eid=#{eid}
   </update>
+
+  <select id="yzUser" parameterType="java.lang.String" resultMap="new">
+      select * from employee where ename = #{ename}
+  </select>
  
 </mapper>
 

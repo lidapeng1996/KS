@@ -27,7 +27,4 @@ public interface TestService {
 
     //更新的方法
     boolean uodateInfo(Employee employee);
-
-    //测试提交
-    boolean Test();
 }

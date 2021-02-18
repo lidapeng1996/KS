@@ -9,15 +9,15 @@
     <result column="local" property="local" jdbcType="VARCHAR" />
   </resultMap>
 
- <select id="showDeptInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+    <!-- 查看部门信息 -->
+    <select id="showDeptInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select * from dept where deptno=#{deptno}
- </select>
-
-
+    </select>
 
     <!--查看部门名称-->
     <select id="showDname" resultMap="BaseResultMap">
-        select  * from dept
+        select * from dept
     </select>
 
 

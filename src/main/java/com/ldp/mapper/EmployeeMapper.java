@@ -21,4 +21,7 @@ public interface EmployeeMapper {
 
     //更新的方法
     int uodateInfo(Employee employee);
+
+    //异步检查用户是否注册的信息
+    List<Employee> yzUser(String ename);
 }

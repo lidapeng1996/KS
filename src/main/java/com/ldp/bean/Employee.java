@@ -1,24 +1,9 @@
 package com.ldp.bean;
 
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
-
-
 public class Employee {
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "eid=" + eid +
-                ", ename='" + ename + '\'' +
-                ", hiredate=" + hiredate +
-                ", deptno=" + deptno +
-                ", address='" + address + '\'' +
-                ", dept=" + dept +
-                '}';
-    }
 
     private Integer eid;
 
@@ -81,5 +66,16 @@ public class Employee {
         this.address = address;
     }
 
-    
+
+    public Employee() {
+    }
+
+    public Employee(Integer eid, String ename, Date hiredate, Integer deptno, String address, Dept dept) {
+        this.eid = eid;
+        this.ename = ename;
+        this.hiredate = hiredate;
+        this.deptno = deptno;
+        this.address = address;
+        this.dept = dept;
+    }
 }

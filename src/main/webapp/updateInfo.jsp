@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -14,7 +15,8 @@
     <form  action="uodateInfo" method="post">
         <input type="hidden" name="eid" id="eid">
         员工姓名:<input type="text" name="ename" id="ename">
-        部门名称:<select name="deptno"  id="pt"></select>
+        部门名称:<select name="deptno"  id="pt">
+                </select>
         入职时间:<input type="date" name="hiredate" id="hiredate">
     <input type="submit" value="提交">
     </form>
@@ -22,6 +24,21 @@
 
     <script type="application/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            $.ajax({
+                type:'get',
+                url:'showDname',
+                dataType:'json',
+                success:function (rs1) {
+                    $(rs1).each(function(index,item){
+                        var opt="<option value='"+item.deptno+"' selected>"+item.dname+"</option>";
+                        $("#pt").append(opt);
+                    });
+                }
+            })
+        })
+
         $(function () {
             $.ajax({
                 type:'get',
@@ -37,19 +54,6 @@
         })
 
 
-        $(document).ready(function () {
-            $.ajax({
-                type:'get',
-                url:'showDname',
-                dataType:'json',
-                success:function (rs1) {
-                    $(rs1).each(function(index,item){
-                        var opt="<option value='"+item.deptno+"' selected>"+item.dname+"</option>";
-                        $("#pt").append(opt);
-                    });
-                }
-            })
-        })
 
 
     </script>
