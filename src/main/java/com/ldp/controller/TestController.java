@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TestController {
@@ -64,4 +66,21 @@ public class TestController {
         return "redirect:/showEmployeeInfo";
     }
 
+    //验证是否用户注册
+    @RequestMapping("yzUser")
+    @ResponseBody
+    public Map<String,String> yzUser(String ename){
+        System.out.println("开始执行代码");
+        List<Employee> list = testService.yzUser(ename);
+        Map<String,String> map = new HashMap<>();
+        if (list.size() == 0) {
+            map.put("result", "success");
+            System.out.println("返回成功");
+            return map;
+        }else{
+            map.put("result","error");
+            System.out.println("返回失败");
+            return map;
+        }
+    }
 }

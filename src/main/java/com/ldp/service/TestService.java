@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface TestService {
 
-
     //展示员工信息
     List<Employee> showEmployeeInfo();
 
@@ -27,4 +26,7 @@ public interface TestService {
 
     //更新的方法
     boolean uodateInfo(Employee employee);
+
+    List<Employee> yzUser(String ename);
+
 }
